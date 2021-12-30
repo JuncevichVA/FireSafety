@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище FireSafetyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FPO_0_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_0" />
+          </Key>
+          <Property Name="Id_FPO_0" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Func" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Low_combustion" Type="float" Nullable="false" />
+          <Property Name="Fire_Speed" Type="float" Nullable="false" />
+          <Property Name="Burn_Speed" Type="float" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="float" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО" Type="float" Nullable="false" />
+          <Property Name="Selection_HCL" Type="float" Nullable="false" />
+          <Property Name="Id_Limit" Type="int" />
+          <Property Name="Id_Object" Type="int" />
+          <Property Name="Id_Conditions" Type="int" />
+        </EntityType>
+        <EntityType Name="FPO_1_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_1" />
+          </Key>
+          <Property Name="Id_FPO_1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Func" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Low_combustion" Type="float" Nullable="false" />
+          <Property Name="Fire_Speed" Type="float" Nullable="false" />
+          <Property Name="Burn_Speed" Type="float" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="float" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО" Type="float" Nullable="false" />
+          <Property Name="Selection_HCL" Type="float" Nullable="false" />
+          <Property Name="Id_Limit" Type="int" />
+          <Property Name="Id_Object" Type="int" />
+          <Property Name="Id_Conditions" Type="int" />
+        </EntityType>
+        <EntityType Name="FPO_2_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_2" />
+          </Key>
+          <Property Name="Id_FPO_2" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Func" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Low_combustion" Type="float" Nullable="false" />
+          <Property Name="Fire_Speed" Type="float" Nullable="false" />
+          <Property Name="Burn_Speed" Type="float" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="float" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО" Type="float" Nullable="false" />
+          <Property Name="Selection_HCL" Type="float" Nullable="false" />
+          <Property Name="Id_Limit" Type="int" />
+          <Property Name="Id_Object" Type="int" />
+          <Property Name="Id_Conditions" Type="int" />
+        </EntityType>
+        <EntityType Name="FPO_3_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_3" />
+          </Key>
+          <Property Name="Id_FPO_3" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Func" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Low_combustion" Type="float" Nullable="false" />
+          <Property Name="Fire_Speed" Type="float" Nullable="false" />
+          <Property Name="Burn_Speed" Type="float" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="float" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО" Type="float" Nullable="false" />
+          <Property Name="Selection_HCL" Type="float" Nullable="false" />
+          <Property Name="Id_Limit" Type="int" />
+          <Property Name="Id_Object" Type="int" />
+          <Property Name="Id_Conditions" Type="int" />
+        </EntityType>
+        <EntityType Name="FPO_4_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_4" />
+          </Key>
+          <Property Name="Id_FPO_4" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Func" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Low_combustion" Type="float" Nullable="false" />
+          <Property Name="Fire_Speed" Type="float" Nullable="false" />
+          <Property Name="Burn_Speed" Type="float" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="float" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО" Type="float" Nullable="false" />
+          <Property Name="Selection_HCL" Type="float" Nullable="false" />
+          <Property Name="Id_Limit" Type="int" />
+          <Property Name="Id_Object" Type="int" />
+          <Property Name="Id_Conditions" Type="int" />
+        </EntityType>
+        <EntityType Name="FPO_5_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_5" />
+          </Key>
+          <Property Name="Id_FPO_5" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Func" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Low_combustion" Type="float" Nullable="false" />
+          <Property Name="Fire_Speed" Type="float" Nullable="false" />
+          <Property Name="Burn_Speed" Type="float" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="float" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО2" Type="float" Nullable="false" />
+          <Property Name="Selection_СО" Type="float" Nullable="false" />
+          <Property Name="Selection_HCL" Type="float" Nullable="false" />
+          <Property Name="Id_Limit" Type="int" />
+          <Property Name="Id_Object" Type="int" />
+          <Property Name="Id_Conditions" Type="int" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="Id_Object" />
+          </Key>
+          <Property Name="Id_Object" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adress_object1" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Type_house" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Room_Func_object" Type="nchar" MaxLength="60" Nullable="false" />
+          <Property Name="Area_object" Type="float" Nullable="false" />
+          <Property Name="Volume_object" Type="float" Nullable="false" />
+          <Property Name="Volume_free_object" Type="float" Nullable="false" />
+          <Property Name="Heihgt__object" Type="float" Nullable="false" />
+          <Property Name="Z_object" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="B_object" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="A_object" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="t_крТ" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="t_крPV" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="t_крO2" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="t_крТCO2" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="t_крCO" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="t_крHCL" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Сonclusion" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="t_кр" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="t_нб" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Id_FPO_5" Type="int" />
+          <Property Name="Id_FPO_4" Type="int" />
+          <Property Name="Id_FPO_3" Type="int" />
+          <Property Name="Id_FPO_2" Type="int" />
+          <Property Name="Id_FPO_1" Type="int" />
+          <Property Name="Id_FPO_0" Type="int" />
+        </EntityType>
+        <EntityType Name="OFP_Limit_Values">
+          <Key>
+            <PropertyRef Name="Id_Limit" />
+          </Key>
+          <Property Name="Id_Limit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Temperature" Type="float" Nullable="false" />
+          <Property Name="Oxygen_Density" Type="float" Nullable="false" />
+          <Property Name="CO_Density" Type="float" Nullable="false" />
+          <Property Name="CO2_Density" Type="float" Nullable="false" />
+          <Property Name="HCL_Density" Type="float" Nullable="false" />
+          <Property Name="Optical_Density" Type="float" Nullable="false" />
+          <Property Name="Id_FPO_0" Type="int" />
+          <Property Name="Id_FPO_1" Type="int" />
+          <Property Name="Id_FPO_2" Type="int" />
+          <Property Name="Id_FPO_3" Type="int" />
+          <Property Name="Id_FPO_4" Type="int" />
+          <Property Name="Id_FPO_5" Type="int" />
+        </EntityType>
+        <EntityType Name="Start_Conditions">
+          <Key>
+            <PropertyRef Name="Id_Conditions" />
+          </Key>
+          <Property Name="Id_Conditions" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Start_Ligting" Type="float" Nullable="false" />
+          <Property Name="Start_Temperature" Type="float" Nullable="false" />
+          <Property Name="Specific_Isobaric" Type="float" Nullable="false" />
+          <Property Name="Partial_Density" Type="float" Nullable="false" />
+          <Property Name="Id_FPO_0" Type="int" />
+          <Property Name="Id_FPO_1" Type="int" />
+          <Property Name="Id_FPO_2" Type="int" />
+          <Property Name="Id_FPO_3" Type="int" />
+          <Property Name="Id_FPO_4" Type="int" />
+          <Property Name="Id_FPO_5" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityContainer Name="Хранилище FireSafetyModelContainer">
+          <EntitySet Name="FPO_0_Klas" EntityType="Self.FPO_0_Klas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FPO_1_Klas" EntityType="Self.FPO_1_Klas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FPO_2_Klas" EntityType="Self.FPO_2_Klas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FPO_3_Klas" EntityType="Self.FPO_3_Klas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FPO_4_Klas" EntityType="Self.FPO_4_Klas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FPO_5_Klas" EntityType="Self.FPO_5_Klas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFP_Limit_Values" EntityType="Self.OFP_Limit_Values" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Start_Conditions" EntityType="Self.Start_Conditions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FireSafetyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FPO_0_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_0" />
+          </Key>
+          <Property Name="Id_FPO_0" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Func" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Low_combustion" Type="Double" Nullable="false" />
+          <Property Name="Fire_Speed" Type="Double" Nullable="false" />
+          <Property Name="Burn_Speed" Type="Double" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="Double" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО" Type="Double" Nullable="false" />
+          <Property Name="Selection_HCL" Type="Double" Nullable="false" />
+          <Property Name="Id_Limit" Type="Int32" />
+          <Property Name="Id_Object" Type="Int32" />
+          <Property Name="Id_Conditions" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FPO_1_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_1" />
+          </Key>
+          <Property Name="Id_FPO_1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Func" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Low_combustion" Type="Double" Nullable="false" />
+          <Property Name="Fire_Speed" Type="Double" Nullable="false" />
+          <Property Name="Burn_Speed" Type="Double" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="Double" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО" Type="Double" Nullable="false" />
+          <Property Name="Selection_HCL" Type="Double" Nullable="false" />
+          <Property Name="Id_Limit" Type="Int32" />
+          <Property Name="Id_Object" Type="Int32" />
+          <Property Name="Id_Conditions" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FPO_2_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_2" />
+          </Key>
+          <Property Name="Id_FPO_2" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Func" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Low_combustion" Type="Double" Nullable="false" />
+          <Property Name="Fire_Speed" Type="Double" Nullable="false" />
+          <Property Name="Burn_Speed" Type="Double" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="Double" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО" Type="Double" Nullable="false" />
+          <Property Name="Selection_HCL" Type="Double" Nullable="false" />
+          <Property Name="Id_Limit" Type="Int32" />
+          <Property Name="Id_Object" Type="Int32" />
+          <Property Name="Id_Conditions" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FPO_3_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_3" />
+          </Key>
+          <Property Name="Id_FPO_3" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Func" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Low_combustion" Type="Double" Nullable="false" />
+          <Property Name="Fire_Speed" Type="Double" Nullable="false" />
+          <Property Name="Burn_Speed" Type="Double" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="Double" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО" Type="Double" Nullable="false" />
+          <Property Name="Selection_HCL" Type="Double" Nullable="false" />
+          <Property Name="Id_Limit" Type="Int32" />
+          <Property Name="Id_Object" Type="Int32" />
+          <Property Name="Id_Conditions" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FPO_4_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_4" />
+          </Key>
+          <Property Name="Id_FPO_4" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Func" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Low_combustion" Type="Double" Nullable="false" />
+          <Property Name="Fire_Speed" Type="Double" Nullable="false" />
+          <Property Name="Burn_Speed" Type="Double" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="Double" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО" Type="Double" Nullable="false" />
+          <Property Name="Selection_HCL" Type="Double" Nullable="false" />
+          <Property Name="Id_Limit" Type="Int32" />
+          <Property Name="Id_Object" Type="Int32" />
+          <Property Name="Id_Conditions" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FPO_5_Klas">
+          <Key>
+            <PropertyRef Name="Id_FPO_5" />
+          </Key>
+          <Property Name="Id_FPO_5" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Func" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Low_combustion" Type="Double" Nullable="false" />
+          <Property Name="Fire_Speed" Type="Double" Nullable="false" />
+          <Property Name="Burn_Speed" Type="Double" Nullable="false" />
+          <Property Name="Generate_Smoke" Type="Double" Nullable="false" />
+          <Property Name="Сonsumption_O2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО2" Type="Double" Nullable="false" />
+          <Property Name="Selection_СО" Type="Double" Nullable="false" />
+          <Property Name="Selection_HCL" Type="Double" Nullable="false" />
+          <Property Name="Id_Limit" Type="Int32" />
+          <Property Name="Id_Object" Type="Int32" />
+          <Property Name="Id_Conditions" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="Id_Object" />
+          </Key>
+          <Property Name="Id_Object" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adress_object1" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Type_house" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Room_Func_object" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Area_object" Type="Double" Nullable="false" />
+          <Property Name="Volume_object" Type="Double" Nullable="false" />
+          <Property Name="Volume_free_object" Type="Double" Nullable="false" />
+          <Property Name="Heihgt__object" Type="Double" Nullable="false" />
+          <Property Name="Z_object" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="B_object" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="A_object" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_крТ" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_крPV" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_крO2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_крТCO2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_крCO" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_крHCL" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Сonclusion" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_кр" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="t_нб" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Id_FPO_5" Type="Int32" />
+          <Property Name="Id_FPO_4" Type="Int32" />
+          <Property Name="Id_FPO_3" Type="Int32" />
+          <Property Name="Id_FPO_2" Type="Int32" />
+          <Property Name="Id_FPO_1" Type="Int32" />
+          <Property Name="Id_FPO_0" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OFP_Limit_Values">
+          <Key>
+            <PropertyRef Name="Id_Limit" />
+          </Key>
+          <Property Name="Id_Limit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Temperature" Type="Double" Nullable="false" />
+          <Property Name="Oxygen_Density" Type="Double" Nullable="false" />
+          <Property Name="CO_Density" Type="Double" Nullable="false" />
+          <Property Name="CO2_Density" Type="Double" Nullable="false" />
+          <Property Name="HCL_Density" Type="Double" Nullable="false" />
+          <Property Name="Optical_Density" Type="Double" Nullable="false" />
+          <Property Name="Id_FPO_0" Type="Int32" />
+          <Property Name="Id_FPO_1" Type="Int32" />
+          <Property Name="Id_FPO_2" Type="Int32" />
+          <Property Name="Id_FPO_3" Type="Int32" />
+          <Property Name="Id_FPO_4" Type="Int32" />
+          <Property Name="Id_FPO_5" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Start_Conditions">
+          <Key>
+            <PropertyRef Name="Id_Conditions" />
+          </Key>
+          <Property Name="Id_Conditions" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Start_Ligting" Type="Double" Nullable="false" />
+          <Property Name="Start_Temperature" Type="Double" Nullable="false" />
+          <Property Name="Specific_Isobaric" Type="Double" Nullable="false" />
+          <Property Name="Partial_Density" Type="Double" Nullable="false" />
+          <Property Name="Id_FPO_0" Type="Int32" />
+          <Property Name="Id_FPO_1" Type="Int32" />
+          <Property Name="Id_FPO_2" Type="Int32" />
+          <Property Name="Id_FPO_3" Type="Int32" />
+          <Property Name="Id_FPO_4" Type="Int32" />
+          <Property Name="Id_FPO_5" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityContainer Name="FireSafetyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FPO_0_Klas" EntityType="Self.FPO_0_Klas" />
+          <EntitySet Name="FPO_1_Klas" EntityType="Self.FPO_1_Klas" />
+          <EntitySet Name="FPO_2_Klas" EntityType="Self.FPO_2_Klas" />
+          <EntitySet Name="FPO_3_Klas" EntityType="Self.FPO_3_Klas" />
+          <EntitySet Name="FPO_4_Klas" EntityType="Self.FPO_4_Klas" />
+          <EntitySet Name="FPO_5_Klas" EntityType="Self.FPO_5_Klas" />
+          <EntitySet Name="Objects" EntityType="Self.Object" />
+          <EntitySet Name="OFP_Limit_Values" EntityType="Self.OFP_Limit_Values" />
+          <EntitySet Name="Start_Conditions" EntityType="Self.Start_Conditions" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FireSafetyModelContainer" CdmEntityContainer="FireSafetyEntities">
+          <EntitySetMapping Name="FPO_0_Klas">
+            <EntityTypeMapping TypeName="FireSafetyModel.FPO_0_Klas">
+              <MappingFragment StoreEntitySet="FPO_0_Klas">
+                <ScalarProperty Name="Id_FPO_0" ColumnName="Id_FPO_0" />
+                <ScalarProperty Name="Room_Func" ColumnName="Room_Func" />
+                <ScalarProperty Name="Low_combustion" ColumnName="Low_combustion" />
+                <ScalarProperty Name="Fire_Speed" ColumnName="Fire_Speed" />
+                <ScalarProperty Name="Burn_Speed" ColumnName="Burn_Speed" />
+                <ScalarProperty Name="Generate_Smoke" ColumnName="Generate_Smoke" />
+                <ScalarProperty Name="Сonsumption_O2" ColumnName="Сonsumption_O2" />
+                <ScalarProperty Name="Selection_СО2" ColumnName="Selection_СО2" />
+                <ScalarProperty Name="Selection_СО" ColumnName="Selection_СО" />
+                <ScalarProperty Name="Selection_HCL" ColumnName="Selection_HCL" />
+                <ScalarProperty Name="Id_Limit" ColumnName="Id_Limit" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Id_Conditions" ColumnName="Id_Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FPO_1_Klas">
+            <EntityTypeMapping TypeName="FireSafetyModel.FPO_1_Klas">
+              <MappingFragment StoreEntitySet="FPO_1_Klas">
+                <ScalarProperty Name="Id_FPO_1" ColumnName="Id_FPO_1" />
+                <ScalarProperty Name="Room_Func" ColumnName="Room_Func" />
+                <ScalarProperty Name="Low_combustion" ColumnName="Low_combustion" />
+                <ScalarProperty Name="Fire_Speed" ColumnName="Fire_Speed" />
+                <ScalarProperty Name="Burn_Speed" ColumnName="Burn_Speed" />
+                <ScalarProperty Name="Generate_Smoke" ColumnName="Generate_Smoke" />
+                <ScalarProperty Name="Сonsumption_O2" ColumnName="Сonsumption_O2" />
+                <ScalarProperty Name="Selection_СО2" ColumnName="Selection_СО2" />
+                <ScalarProperty Name="Selection_СО" ColumnName="Selection_СО" />
+                <ScalarProperty Name="Selection_HCL" ColumnName="Selection_HCL" />
+                <ScalarProperty Name="Id_Limit" ColumnName="Id_Limit" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Id_Conditions" ColumnName="Id_Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FPO_2_Klas">
+            <EntityTypeMapping TypeName="FireSafetyModel.FPO_2_Klas">
+              <MappingFragment StoreEntitySet="FPO_2_Klas">
+                <ScalarProperty Name="Id_FPO_2" ColumnName="Id_FPO_2" />
+                <ScalarProperty Name="Room_Func" ColumnName="Room_Func" />
+                <ScalarProperty Name="Low_combustion" ColumnName="Low_combustion" />
+                <ScalarProperty Name="Fire_Speed" ColumnName="Fire_Speed" />
+                <ScalarProperty Name="Burn_Speed" ColumnName="Burn_Speed" />
+                <ScalarProperty Name="Generate_Smoke" ColumnName="Generate_Smoke" />
+                <ScalarProperty Name="Сonsumption_O2" ColumnName="Сonsumption_O2" />
+                <ScalarProperty Name="Selection_СО2" ColumnName="Selection_СО2" />
+                <ScalarProperty Name="Selection_СО" ColumnName="Selection_СО" />
+                <ScalarProperty Name="Selection_HCL" ColumnName="Selection_HCL" />
+                <ScalarProperty Name="Id_Limit" ColumnName="Id_Limit" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Id_Conditions" ColumnName="Id_Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FPO_3_Klas">
+            <EntityTypeMapping TypeName="FireSafetyModel.FPO_3_Klas">
+              <MappingFragment StoreEntitySet="FPO_3_Klas">
+                <ScalarProperty Name="Id_FPO_3" ColumnName="Id_FPO_3" />
+                <ScalarProperty Name="Room_Func" ColumnName="Room_Func" />
+                <ScalarProperty Name="Low_combustion" ColumnName="Low_combustion" />
+                <ScalarProperty Name="Fire_Speed" ColumnName="Fire_Speed" />
+                <ScalarProperty Name="Burn_Speed" ColumnName="Burn_Speed" />
+                <ScalarProperty Name="Generate_Smoke" ColumnName="Generate_Smoke" />
+                <ScalarProperty Name="Сonsumption_O2" ColumnName="Сonsumption_O2" />
+                <ScalarProperty Name="Selection_СО2" ColumnName="Selection_СО2" />
+                <ScalarProperty Name="Selection_СО" ColumnName="Selection_СО" />
+                <ScalarProperty Name="Selection_HCL" ColumnName="Selection_HCL" />
+                <ScalarProperty Name="Id_Limit" ColumnName="Id_Limit" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Id_Conditions" ColumnName="Id_Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FPO_4_Klas">
+            <EntityTypeMapping TypeName="FireSafetyModel.FPO_4_Klas">
+              <MappingFragment StoreEntitySet="FPO_4_Klas">
+                <ScalarProperty Name="Id_FPO_4" ColumnName="Id_FPO_4" />
+                <ScalarProperty Name="Room_Func" ColumnName="Room_Func" />
+                <ScalarProperty Name="Low_combustion" ColumnName="Low_combustion" />
+                <ScalarProperty Name="Fire_Speed" ColumnName="Fire_Speed" />
+                <ScalarProperty Name="Burn_Speed" ColumnName="Burn_Speed" />
+                <ScalarProperty Name="Generate_Smoke" ColumnName="Generate_Smoke" />
+                <ScalarProperty Name="Сonsumption_O2" ColumnName="Сonsumption_O2" />
+                <ScalarProperty Name="Selection_СО2" ColumnName="Selection_СО2" />
+                <ScalarProperty Name="Selection_СО" ColumnName="Selection_СО" />
+                <ScalarProperty Name="Selection_HCL" ColumnName="Selection_HCL" />
+                <ScalarProperty Name="Id_Limit" ColumnName="Id_Limit" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Id_Conditions" ColumnName="Id_Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FPO_5_Klas">
+            <EntityTypeMapping TypeName="FireSafetyModel.FPO_5_Klas">
+              <MappingFragment StoreEntitySet="FPO_5_Klas">
+                <ScalarProperty Name="Id_FPO_5" ColumnName="Id_FPO_5" />
+                <ScalarProperty Name="Room_Func" ColumnName="Room_Func" />
+                <ScalarProperty Name="Low_combustion" ColumnName="Low_combustion" />
+                <ScalarProperty Name="Fire_Speed" ColumnName="Fire_Speed" />
+                <ScalarProperty Name="Burn_Speed" ColumnName="Burn_Speed" />
+                <ScalarProperty Name="Generate_Smoke" ColumnName="Generate_Smoke" />
+                <ScalarProperty Name="Сonsumption_O2" ColumnName="Сonsumption_O2" />
+                <ScalarProperty Name="Selection_СО2" ColumnName="Selection_СО2" />
+                <ScalarProperty Name="Selection_СО" ColumnName="Selection_СО" />
+                <ScalarProperty Name="Selection_HCL" ColumnName="Selection_HCL" />
+                <ScalarProperty Name="Id_Limit" ColumnName="Id_Limit" />
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Id_Conditions" ColumnName="Id_Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Objects">
+            <EntityTypeMapping TypeName="FireSafetyModel.Object">
+              <MappingFragment StoreEntitySet="Object">
+                <ScalarProperty Name="Id_Object" ColumnName="Id_Object" />
+                <ScalarProperty Name="Adress_object1" ColumnName="Adress_object1" />
+                <ScalarProperty Name="Type_house" ColumnName="Type_house" />
+                <ScalarProperty Name="Room_Func_object" ColumnName="Room_Func_object" />
+                <ScalarProperty Name="Area_object" ColumnName="Area_object" />
+                <ScalarProperty Name="Volume_object" ColumnName="Volume_object" />
+                <ScalarProperty Name="Volume_free_object" ColumnName="Volume_free_object" />
+                <ScalarProperty Name="Heihgt__object" ColumnName="Heihgt__object" />
+                <ScalarProperty Name="Z_object" ColumnName="Z_object" />
+                <ScalarProperty Name="B_object" ColumnName="B_object" />
+                <ScalarProperty Name="A_object" ColumnName="A_object" />
+                <ScalarProperty Name="t_крТ" ColumnName="t_крТ" />
+                <ScalarProperty Name="t_крPV" ColumnName="t_крPV" />
+                <ScalarProperty Name="t_крO2" ColumnName="t_крO2" />
+                <ScalarProperty Name="t_крТCO2" ColumnName="t_крТCO2" />
+                <ScalarProperty Name="t_крCO" ColumnName="t_крCO" />
+                <ScalarProperty Name="t_крHCL" ColumnName="t_крHCL" />
+                <ScalarProperty Name="Сonclusion" ColumnName="Сonclusion" />
+                <ScalarProperty Name="t_кр" ColumnName="t_кр" />
+                <ScalarProperty Name="t_нб" ColumnName="t_нб" />
+                <ScalarProperty Name="Id_FPO_5" ColumnName="Id_FPO_5" />
+                <ScalarProperty Name="Id_FPO_4" ColumnName="Id_FPO_4" />
+                <ScalarProperty Name="Id_FPO_3" ColumnName="Id_FPO_3" />
+                <ScalarProperty Name="Id_FPO_2" ColumnName="Id_FPO_2" />
+                <ScalarProperty Name="Id_FPO_1" ColumnName="Id_FPO_1" />
+                <ScalarProperty Name="Id_FPO_0" ColumnName="Id_FPO_0" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFP_Limit_Values">
+            <EntityTypeMapping TypeName="FireSafetyModel.OFP_Limit_Values">
+              <MappingFragment StoreEntitySet="OFP_Limit_Values">
+                <ScalarProperty Name="Id_Limit" ColumnName="Id_Limit" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="Oxygen_Density" ColumnName="Oxygen_Density" />
+                <ScalarProperty Name="CO_Density" ColumnName="CO_Density" />
+                <ScalarProperty Name="CO2_Density" ColumnName="CO2_Density" />
+                <ScalarProperty Name="HCL_Density" ColumnName="HCL_Density" />
+                <ScalarProperty Name="Optical_Density" ColumnName="Optical_Density" />
+                <ScalarProperty Name="Id_FPO_0" ColumnName="Id_FPO_0" />
+                <ScalarProperty Name="Id_FPO_1" ColumnName="Id_FPO_1" />
+                <ScalarProperty Name="Id_FPO_2" ColumnName="Id_FPO_2" />
+                <ScalarProperty Name="Id_FPO_3" ColumnName="Id_FPO_3" />
+                <ScalarProperty Name="Id_FPO_4" ColumnName="Id_FPO_4" />
+                <ScalarProperty Name="Id_FPO_5" ColumnName="Id_FPO_5" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Start_Conditions">
+            <EntityTypeMapping TypeName="FireSafetyModel.Start_Conditions">
+              <MappingFragment StoreEntitySet="Start_Conditions">
+                <ScalarProperty Name="Id_Conditions" ColumnName="Id_Conditions" />
+                <ScalarProperty Name="Start_Ligting" ColumnName="Start_Ligting" />
+                <ScalarProperty Name="Start_Temperature" ColumnName="Start_Temperature" />
+                <ScalarProperty Name="Specific_Isobaric" ColumnName="Specific_Isobaric" />
+                <ScalarProperty Name="Partial_Density" ColumnName="Partial_Density" />
+                <ScalarProperty Name="Id_FPO_0" ColumnName="Id_FPO_0" />
+                <ScalarProperty Name="Id_FPO_1" ColumnName="Id_FPO_1" />
+                <ScalarProperty Name="Id_FPO_2" ColumnName="Id_FPO_2" />
+                <ScalarProperty Name="Id_FPO_3" ColumnName="Id_FPO_3" />
+                <ScalarProperty Name="Id_FPO_4" ColumnName="Id_FPO_4" />
+                <ScalarProperty Name="Id_FPO_5" ColumnName="Id_FPO_5" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FireSafetyModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

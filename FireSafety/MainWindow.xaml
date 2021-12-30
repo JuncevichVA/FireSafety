@@ -1,0 +1,806 @@
+﻿<Window x:Class="FireSafety.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FireSafety"
+        mc:Ignorable="d"
+        Title="Определение времени эвакуации при пожаре" 
+        Height="2000" 
+        Width="1900"
+        WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, 
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="Background" Value="Pink"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ControlTemplate x:Key="ErrorTemp1">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderThickness="2" BorderBrush="Red">
+                    <AdornedElementPlaceholder></AdornedElementPlaceholder>
+                </Border>
+                <TextBlock Foreground="Red" FontSize="24">*</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+
+
+
+
+    <!--
+        ScrollViewer - отображает полосы прокрутки, если контент не помещается в заданную область.
+    -->
+
+    <ScrollViewer>
+        <StackPanel Height="2585" Width="1890">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="background1.jpg" Stretch="UniformToFill"/>
+            </StackPanel.Background>
+
+            <WrapPanel Background="LightSteelBlue" Name="Wp1_main" Height="35">
+
+                <Menu >
+                    <MenuItem Header="ШАГ 1" Background="GreenYellow" Name="ШАГ_1" IsEnabled="True"  FontWeight="Medium"   Height="35" Width="80">
+                        <Separator></Separator>
+                        <CheckBox Name="Cb_m1" Checked="Start_step1_checkbox" Unchecked="Step1_collapsed" IsChecked="False" >Создать обьект для расчета, необходимого времени эвакуации:</CheckBox>
+                    </MenuItem>
+                    <MenuItem Header="ШАГ 2"  Name="ШАГ_2" IsEnabled="False"  FontWeight="Medium"   Height="35" Width="85">
+                        <Separator></Separator>
+                    </MenuItem>
+                    <MenuItem Header="ШАГ 3"  Name="ШАГ_3" IsEnabled="False" FontWeight="Medium"   Height="35" Width="85">
+                        <Separator></Separator>
+                        <!-- <CheckBox Name="Cb_m3" Checked="Cb_m3_Checked" Unchecked="Cb_m3_Unchecked" IsChecked="False" >Исходные данные  о помещении</CheckBox> -->
+                    </MenuItem>
+                    <MenuItem Header="ШАГ 4"  Name="ШАГ_4" IsEnabled="False" FontWeight="Medium"   Height="35" Width="80">
+                        <Separator></Separator>
+                        <!--  <CheckBox Name="Cb_m4" Checked="Cb_m4_Checked" Unchecked="Cb_m4_Unchecked" IsChecked="False" >Исходные данные  о помещении</CheckBox> -->
+                    </MenuItem>
+                    <MenuItem Header="Результаты"  Name="ШАГ_5" IsEnabled="False" FontWeight="Medium"   Height="35" Width="90">
+                        <Separator></Separator>
+                        <!-- <CheckBox Name="Cb_m5"  IsChecked="False" >Исходные данные  о помещении</CheckBox> -->
+                    </MenuItem>
+                    <MenuItem Header="Графики"  Name="grafick" IsEnabled="False" FontWeight="Medium"   Height="35" Width="90">
+                        <Separator></Separator>
+                        <!--  <CheckBox Name="Cb_m6"  IsChecked="False" >Исходные данные  о помещении</CheckBox> -->
+                    </MenuItem>
+                    <MenuItem Header="БД результатов" Background="GreenYellow" Name="BD_rez" IsEnabled="True"  FontWeight="Medium"   Height="35" Width="101">
+                        <Separator></Separator>
+                        <CheckBox Name="Cb_rez_bd" Checked="BD_rezult_checkbox" Unchecked="Cb_rez_bd_collapsed" IsChecked="False" >Просмотреть базу данных результатов, необходимого времени эвакуации:</CheckBox>
+                    </MenuItem>
+
+                </Menu>
+            </WrapPanel>
+
+            <WrapPanel Name="panel" Height="2100" >
+
+
+
+                <!--
+                                          ОКНО ШАГ 1
+    -->
+
+                <StackPanel Name="Step1" Visibility="Collapsed">
+                    <Border  Background="GhostWhite" BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="761">
+                        <Grid Margin="-38.6,0.4,-0.4,-0.2" HorizontalAlignment="Right" Width="755">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16*"/>
+                                <ColumnDefinition Width="739*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="30,8,0,0" HorizontalAlignment="Left" Width="622" Grid.Column="1">
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="30"  Margin="0,0,0,-20.2" Width="105"><Run Text="ШАГ 1"/></TextBlock>
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="388" RenderTransformOrigin="0.654,0.512"><Run Text="1. Исходные данные о помещении"/></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="45,38,0,0" HorizontalAlignment="Left" Width="563" Grid.Column="1">
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="593" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-1.2"><Run Text="1.1.  Введите "/><Run Text="необходимые данные о помещени"/><Run Text="и"/><Run Text=": "/></TextBlock>
+                            </StackPanel>
+                            <Border BorderBrush="Black" CornerRadius="15" Margin="20,58,39.2,0" Padding="15" BorderThickness="1" Height="160" VerticalAlignment="Top" Grid.Column="1">
+                                <Grid Margin="-35.8,-60.8,-0.6,-27.8" Grid.ColumnSpan="2">
+                                    <StackPanel x:Name="Sp0_1" Orientation="Horizontal" Height="26" VerticalAlignment="Top" Visibility="Visible" Margin="31,53,-15.6,0" HorizontalAlignment="Left" Width="669">
+                                        <TextBlock  ToolTip="От 1 до 20 метров" Margin="0,0,0,-0.2" Width="139" Text="Объект" />
+                                        <TextBox x:Name="a0_1" MaxLength="37"   Text=""  IsReadOnly="False" TextAlignment="Left" Width="510" Margin="0,0,0,5.6"/>
+
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp1_1" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="31,78,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="От 1 до 20 метров" Margin="0,0,0,-0.2" Width="139" ><Run Text="Длина, м : а ="/></TextBlock>
+                                        <TextBox x:Name="a1_1" Text="{Binding Value, ElementName=Sl1_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0,0,5.8" Height="19" VerticalAlignment="Bottom" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="20" Minimum="1" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged1"  ToolTip="Тяни меня в сторону"  TickFrequency="0.1" IsSnapToTickEnabled="True" x:Name="Sl1_1" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp2_1" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="31,111,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="От 1 до 20 метров" Margin="0,0,0,-0.2" Width="139" ><Run Text="Ширина, м : b ="/></TextBlock>
+                                        <TextBox x:Name="b1_1" Text="{Binding Value, ElementName=Sl2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="20" Minimum="1" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged2" ToolTip="Тяни меня в сторону"  TickFrequency="0.1" IsSnapToTickEnabled="True" x:Name="Sl2_1" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp3_1" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="31,141,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="От 1 до 10 метров" Margin="0,0,0,-0.2" Width="139" ><Run Text="Высота, м : h ="/></TextBlock>
+                                        <TextBox x:Name="h1_1" Text="{Binding Value, ElementName=Sl3_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="10" Minimum="2" TickPlacement="BottomRight" ToolTip="Тяни меня в сторону" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged3"  TickFrequency="0.1" IsSnapToTickEnabled="True" x:Name="Sl3_1" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp4_1" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="31,171,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="От 0 до 500 " Margin="0,0,0,-0.2" Width="139" ><Run Text="Освещенность, лк: Е ="/></TextBlock>
+                                        <TextBox x:Name="E1_1" Text="{Binding Value, ElementName=Sl4_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="500" Minimum="1" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged4" TickPlacement="BottomRight" IsEnabled="True" ToolTip="Тяни меня в сторону"  TickFrequency="0.1" IsSnapToTickEnabled="True" x:Name="Sl4_1" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="115,223,0,0" HorizontalAlignment="Left" Width="563" Grid.Column="1">
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="430" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-1.2"><Run Text="1.2 Начальные условия окружающей среды в помещении"/></TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="Sp10_1" Orientation="Horizontal" Height="15" VerticalAlignment="Top" Visibility="Visible" Margin="100,228,0,0" HorizontalAlignment="Left" Width="20" Grid.Column="1">
+                                <CheckBox x:Name="Ch2_1" ToolTip="Нажми меня "  IsChecked="False" Margin="0,0,0,-4.8" Width="35" Checked="View_start_conditions" Unchecked="Disview_start_conditions" />
+                            </StackPanel>
+                            <Border  Name="B1_1" BorderBrush="Black" CornerRadius="15" Visibility="Collapsed" Margin="25,248,29.2,0" Padding="15" BorderThickness="1" Height="145" VerticalAlignment="Top" Grid.Column="1">
+                                <Grid Name="Start_value" Margin="0.2,-247.8,-17.6,-11.8"  Height="370" Visibility="Visible" VerticalAlignment="Bottom" Grid.Column="1">
+                                    <StackPanel x:Name="Sp6_1"  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="-2,238,-69,0" HorizontalAlignment="Left" Width="687">
+                                        <TextBlock  ToolTip="Плотность газовой среды" Margin="0,0,0,-0.2" Width="140" ><Run Text="Плотность среды"/></TextBlock>
+                                        <TextBox x:Name="Tb1_1" Text="{Binding Value, ElementName=Sl5_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="3" Minimum="1" TickPlacement="BottomRight" Value="1.2041" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged5" IsEnabled="False" ToolTip="Тяни меня в сторону"  TickFrequency="0.0001"  IsSnapToTickEnabled="True" x:Name="Sl5_1" Width="455" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp7_1" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="-2,264,-69,0" HorizontalAlignment="Left" Width="687">
+                                        <TextBlock  ToolTip="Начальная температура воздуха" Margin="0,0,0,-0.2" Width="139" ><Run Text="Температура воздуха, °С;"/></TextBlock>
+                                        <TextBox x:Name="Tb2_1" Text="{Binding Value, ElementName=Sl6_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="100" Minimum="-70" TickPlacement="BottomRight" SelectionStart="-70"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged6" IsEnabled="False" ToolTip="Тяни меня в сторону" Value="20" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="Sl6_1" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp8_1" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="-2,289,-69,0" HorizontalAlignment="Left" Width="687">
+                                        <TextBlock  ToolTip="Удельная изобарная теплоемкость газа" Margin="0,0,0,-0.2" Width="139" ><Run Text="Теплоемкость газа "/></TextBlock>
+                                        <TextBox x:Name="Tb3_1" Text="{Binding Value, ElementName=Sl7_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="0.01" Minimum="0.0001" TickPlacement="BottomRight" IsEnabled="False" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged7" ToolTip="Тяни меня в сторону" Value="0.00106"  TickFrequency="0.0001" IsSnapToTickEnabled="True" x:Name="Sl7_1" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp9_1" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="-2,314,-69,0" HorizontalAlignment="Left" Width="687">
+                                        <TextBlock  ToolTip="От 0.5 до 1 " Margin="0,0,0,-0.2" Width="139" ><Run Text="Плотность кислорода"/></TextBlock>
+                                        <TextBox x:Name="Tb4_1" Text="{Binding Value, ElementName=Sl8_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="1" Minimum="0.1" TickPlacement="BottomRight" IsEnabled="False" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged8" ToolTip="Тяни меня в сторону" Value="0.278" TickFrequency="0.01" IsSnapToTickEnabled="True" x:Name="Sl8_1" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" x:Name="Sp11_1" Height="25" Visibility="Visible" VerticalAlignment="Top" Margin="0,349,373,0" HorizontalAlignment="Right" Width="240">
+                                        <RadioButton x:Name="Rb1_1" FontWeight="Medium" GroupName="3" Checked="Сhange_start_conditions" Unchecked="Fixed_start_conditions" IsChecked="False" Margin="0,0,0,-0.2" Width="618"  Content="Изменить начальные условия"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" x:Name="Sp12_1" Height="25" Visibility="Visible" VerticalAlignment="Top" Margin="270,349,0,0" HorizontalAlignment="Left" Width="415">
+                                        <RadioButton x:Name="Rb2_1" FontWeight="Medium" GroupName="3" IsChecked="False" Checked="Rb2_1_Checked_1" Margin="0,0,0,-0.2" Width="525" Content="Установить условия по умолчанию" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Button Content="Перейти  к ШАГУ 2" FontWeight="Medium" IsDefault="True"   HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="540,398,0,0" Click="Raschet_geometri_object" Height="30" Grid.Column="1"/>
+                            <Button Content="Вернуться в МЕНЮ" FontWeight="Medium"  IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="45,398,0,0" Click="Step1_Menu" Height="30" Grid.Column="1" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+
+
+
+
+                <!--
+                                          ОКНО ШАГ 2
+    -->
+
+
+
+                <StackPanel Name="Step2" Visibility="Collapsed" Height="442">
+                    <Border  Background="GhostWhite" BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="761">
+                        <Grid Margin="-38.6,0.4,-0.4,-0.2" HorizontalAlignment="Right" Width="755">
+                            <StackPanel Orientation="Horizontal" Height="48" VerticalAlignment="Top" Margin="35,5,0,0" HorizontalAlignment="Left" Width="710">
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="30" Margin="0,0,0,-23.2"><Run Text="ШАГ 2"/></TextBlock>
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="538" RenderTransformOrigin="0.654,0.512"><Run Text="2. Исходные данные пожарной нагрузки"/></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="145,33,0,0" HorizontalAlignment="Left" Width="425">
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="20"><Run Text=""/></TextBlock>
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="430" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-1.2"><Run Text=" "/><Run Text="2.1. Выберите к"/><Run Text="ласс функциональной пожарной опасности"/></TextBlock>
+                            </StackPanel>
+                            <Border BorderBrush="Black" CornerRadius="15" Margin="35,53,40,0" Padding="15" BorderThickness="1" Height="295" VerticalAlignment="Top">
+                                <Grid Margin="-31,-61,0,-10.8">
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="0,68,1,0" HorizontalAlignment="Right" Width="638">
+                                        <RadioButton x:Name="Rb4_2" GroupName="2"  IsChecked="False" Margin="0,0,0,-0.2" Width="574"  Content=" Ф1 - Здания, предназначенные для постоянного проживания и временного пребывания людей."/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="41,103,0,0" HorizontalAlignment="Left" Width="414">
+                                        <RadioButton x:Name="Rb5_2" GroupName="2" IsChecked="False"  Margin="0,0,0,-0.2" Width="525" Content=" Ф2 - Здания зрелищных и культурно-просветительных учреждений." />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="40,143,0,0" HorizontalAlignment="Left" Width="360">
+                                        <RadioButton x:Name="Rb6_2" GroupName="2"  IsChecked="False" Margin="0,0,0,-0.2" Width="510" Content=" Ф3 - Здания организаций по обслуживанию населения."/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="40,183,0,0" HorizontalAlignment="Left" Width="645">
+                                        <RadioButton x:Name="Rb7_2" GroupName="2" IsChecked="False" Margin="0,0,0,-0.2" Width="680" Content=" Ф4 - Здания образовательных организаций, научных и проектных организаций, органов управления учреждений."/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="40,228,0,0" HorizontalAlignment="Left" Width="560">
+                                        <RadioButton x:Name="Rb8_2" GroupName="2"  IsChecked="False" Margin="0,0,0,-0.2" Width="600"   Content=" Ф5 - Здания производственного или складского назначения."/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="130,268,0,0" HorizontalAlignment="Left" Width="425">
+                                        <TextBlock  ToolTip="" FontWeight="Medium" FontSize="20"><Run Text=""/></TextBlock>
+                                        <TextBlock  Margin="5,10" ToolTip=""/>
+                                        <TextBlock  ToolTip="" TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="430" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-1.2"><Run Text=" "/><Run Text="2.1.1 Выберите для создания собственного класса "/><Run Text=""/></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="40,303,0,0" HorizontalAlignment="Left" Width="560">
+                                        <RadioButton x:Name="Rb9_2" GroupName="2"  IsChecked="False" Checked="Сhoice_FPO0"  Margin="0,0,0,-0.2" Width="600"   Content=" Ф0 - Собственный класс."/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Button Content="Перейти к ШАГУ 3" FontWeight="Medium" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="571,398,0,0" Click=" Algoritm_opredelenia_klass_FPO" Height="30"/>
+                            <Button Content="Вернуться к ШАГУ 1" FontWeight="Medium" IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="61,398,0,0" Click="Step2_Step1"  Height="30" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+
+                <!--
+                                          ОКНО ШАГ БД
+    -->
+
+
+                <StackPanel Name="Step2_1" Visibility="Collapsed" Height="442">
+                    <Border  Background="GhostWhite"  BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="1515">
+                        <Grid Margin="0,0.4,27.8,0.2" HorizontalAlignment="Right" Width="730">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="116*"/>
+                                <ColumnDefinition Width="639*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Height="52" VerticalAlignment="Top" Margin="-690,10,0,0" HorizontalAlignment="Left" Width="1355" Grid.ColumnSpan="2">
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="30" Margin="0,-1,0,-16.2" Width="270" RenderTransformOrigin="0.5,0.5">
+                                    <TextBlock.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform AngleY="0.614"/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="-0.589"/>
+                                        </TransformGroup>
+                                    </TextBlock.RenderTransform><Run Text="БД"/></TextBlock>
+                                <TextBlock   TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="1544" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-0.2"><Run Text="Исходные данные пожарной нагрузки"/></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="5,182,0,0" HorizontalAlignment="Left" Width="563" Grid.Column="1"/>
+                            <StackPanel x:Name="Sp1_2_1" Orientation="Horizontal" Height="385" VerticalAlignment="Top" Visibility="Visible" Margin="11,37,0,0" HorizontalAlignment="Left" Width="730" Grid.ColumnSpan="2">
+
+                                <DataGrid x:Name="Dg1_2_1" Visibility="Visible" IsReadOnly="True" LoadingRow="Dg1_2_1_LoadingRow" AutoGenerateColumns="False" Margin="0,9,0,36" Width="710">
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn Header="Наименование нагрузки " Binding="{Binding Room_Func}"   Width="*"/>
+                                        <DataGridTextColumn Header="Q, МДж/кг " Binding="{Binding Low_combustion}"/>
+                                        <DataGridTextColumn Header="v,м/с" Binding="{Binding Fire_Speed}"/>
+                                        <DataGridTextColumn Header="ψF, к*м*с" Binding="{Binding Burn_Speed}"/>
+                                        <DataGridTextColumn Header="Dm , Нп*м2*кг-1 " Binding="{Binding Generate_Smoke}"/>
+                                        <DataGridTextColumn Header="L02, кг/кг" Binding="{Binding Сonsumption_O2}"/>
+                                        <DataGridTextColumn Header="LC02, кг/кг" Binding="{Binding Selection_СО2}"/>
+                                        <DataGridTextColumn Header="LC0, кг/кг" Binding="{Binding Selection_СО}"/>
+                                        <DataGridTextColumn Header="LHCL, кг/кг" Binding="{Binding Selection_HCL}"/>
+
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+                            </StackPanel>
+                            <Border BorderBrush="Black" CornerRadius="15" Margin="-710,52,127,0" Padding="15" BorderThickness="1" Height="325" VerticalAlignment="Top">
+
+                                <Grid Visibility="Visible" Margin="-46,-191,-20.8,-11.2">
+
+
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="70,149,0,0" HorizontalAlignment="Left" Width="563">
+                                        <TextBlock  TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="569" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-1.4"><Run Text="Заполните все поля создаваемого класса"/></TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,182,0,0" HorizontalAlignment="Left" Width="675">
+                                        <TextBlock  ToolTip="Наименование нагрузки" Margin="0,0,0,-0.2" Width="249" Text="Наименование помещения" />
+                                        <TextBox x:Name="Nagryzka" TextAlignment="Left"  MaxLength="37"  Width="411" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,215,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="Наименование нагрузки " Margin="0,0,0,-0.2" Width="249" Text="Низшая теплота сгорания  Q" RenderTransformOrigin="0.5,0.504" />
+                                        <TextBox x:Name="Tb1_2_1" Text="{Binding Value, ElementName=Sl1_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="30" Minimum="1" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged11"  ToolTip="Тяни меня в сторону"  TickFrequency="0.1" IsSnapToTickEnabled="True" x:Name="Sl1_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,250,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="249" Text="Линейная скорость пламени,  v " />
+                                        <TextBox x:Name="Tb2_2_1" Text="{Binding Value, ElementName=Sl2_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="0.01" Minimum="0.001" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged12"  ToolTip="Тяни меня в сторону"  TickFrequency="0.001" IsSnapToTickEnabled="True" x:Name="Sl2_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,290,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="249" ><Run Text="Удельная скорость выгорания, "/><Span Foreground="Black" FontSize="12.6666666666667" FontFamily="Consolas"><Run Text=" ψF "/></Span></TextBlock>
+                                        <TextBox x:Name="Tb3_2_1" Text="{Binding Value, ElementName=Sl3_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="0.01" Minimum="0.001" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged13"  ToolTip="Тяни меня в сторону"  TickFrequency="0.001" IsSnapToTickEnabled="True" x:Name="Sl3_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,325,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="249" Text="Дымообразующая способность, Dm" />
+                                        <TextBox x:Name="Tb5_2_1" Text="{Binding Value, ElementName=Sl5_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="1000" Minimum="5" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged14"  ToolTip="Тяни меня в сторону"  TickFrequency="1" IsSnapToTickEnabled="True" x:Name="Sl5_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,360,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="249" ><Run Text="Потребление кислорода, кг/кг, L ="/></TextBlock>
+                                        <TextBox x:Name="Tb6_2_1" Text="{Binding Value, ElementName=Sl6_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="-0.1" Minimum="-10" TickPlacement="BottomRight" SelectionStart="-10"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged15"  ToolTip="Тяни меня в сторону"  TickFrequency="0.01" IsSnapToTickEnabled="True" x:Name="Sl6_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,395,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="249" ><Run Text="Выделение СО2, кг/кг, "/></TextBlock>
+                                        <TextBox x:Name="Tb7_2_1" Text="{Binding Value, ElementName=Sl7_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="3" Minimum="0.1" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged16"  ToolTip="Тяни меня в сторону"  TickFrequency="0.01" IsSnapToTickEnabled="True" x:Name="Sl7_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,430,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="249" ><Run Text="Выделение СО, кг/кг,  "/></TextBlock>
+                                        <TextBox x:Name="Tb8_2_1" Text="{Binding Value, ElementName=Sl8_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="0.5" Minimum="0.001" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged17"  ToolTip="Тяни меня в сторону"  TickFrequency="0.001" IsSnapToTickEnabled="True" x:Name="Sl8_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="50,465,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="249" ><Run Text="Выделение HCL, кг/кг, "/></TextBlock>
+                                        <TextBox x:Name="Tb9_2_1" Text="{Binding Value, ElementName=Sl9_2_1, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right"   Width="80" Margin="0,0,0,4.8" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="0.01" Minimum="0.001" TickPlacement="BottomRight" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged18"  ToolTip="Тяни меня в сторону"  TickFrequency="0.001" IsSnapToTickEnabled="True" x:Name="Sl9_2_1" Width="320" Margin="0,0,0,-0.2" />
+                                    </StackPanel>
+
+                                </Grid>
+                            </Border>
+                            <Button Content="Вернуться к ШАГУ 2" FontWeight="Medium" IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Height="30" Margin="-703,398,0,0" Click="StepBD_Step2" />
+                            <Button Content="Перейти к ШАГУ 3" FontWeight="Medium" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="450,398,0,0" Click="StepBD_Step3" Height="30" Grid.Column="1"/>
+                            <Button Content="Удалить из БД" IsDefault="True" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135"  Height="30" Margin="140,402,0,0" Click="Delete_BD_FPO0" Grid.Column="1"/>
+                            <Button Content="Добавить класс в БД" IsCancel="True" Visibility="Visible" HorizontalAlignment="Left" Width="130" Margin="-443,397,0,7.6" Click="Add_BD_FPO0" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+
+
+                <!--
+                                          ОКНО ШАГ 3
+    -->
+
+                <StackPanel Name="Step3" Visibility="Collapsed" Height="442">
+                    <Border  Background="GhostWhite"  BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="761">
+                        <Grid Margin="-38.6,0.4,-0.4,-0.2" HorizontalAlignment="Right" Width="755">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="116*"/>
+                                <ColumnDefinition Width="639*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Height="52" VerticalAlignment="Top" Margin="45,17,0,0" HorizontalAlignment="Left" Width="546" Grid.ColumnSpan="2">
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="30" Margin="0,0,0,-17" Width="110" RenderTransformOrigin="0.5,0.5">
+                                    <TextBlock.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform AngleY="0.614"/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="-0.589"/>
+                                        </TransformGroup>
+                                    </TextBlock.RenderTransform><Run Text="ШАГ 3"/></TextBlock>
+                                <TextBlock   TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="388" RenderTransformOrigin="0.654,0.512"><Run Text="3. Исходные данные пожарной нагрузки"/></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="15,42,0,0" HorizontalAlignment="Left" Width="563" Grid.Column="1">
+                                <TextBlock  TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="430" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-0.4"><Run Text="3.1.  Выберите типовую пожарную нагрузку из списка"/></TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="Sp1_3" Orientation="Horizontal" Height="60" VerticalAlignment="Top" Visibility="Visible" Margin="31,62,0,0" HorizontalAlignment="Left" Width="720" Grid.ColumnSpan="2">
+
+                                <ComboBox Name="Cb1_3" Visibility="Collapsed"  Margin="5,4,5,35.2" Width="705"/>
+                                <ComboBox Name="Cb2_3" Visibility="Collapsed"    Margin="5,4,5,35.2" Width="705"/>
+                                <ComboBox Name="Cb3_3" Visibility="Collapsed"   Margin="5,4,5,35.2" Width="705"/>
+                                <ComboBox Name="Cb4_3" Visibility="Collapsed"  Margin="5,4,5,35.2" Width="705"/>
+                                <ComboBox Name="Cb5_3" Visibility="Collapsed"   Margin="5,4,5,35.2" Width="705"/>
+                                <ComboBox Name="Cb6_3" Visibility="Collapsed"  Margin="5,4,5,35.2" Width="705"/>
+                                <DataGrid x:Name="Dg1_3" Visibility="Collapsed" AutoGenerateColumns="False" Margin="0,0,0,-23.8" Width="365">
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn Header="2" Binding="{Binding Room_Func}"/>
+                                        <DataGridTextColumn Header="3" Binding="{Binding Low_combustion}"/>
+                                        <DataGridTextColumn Header="4" Binding="{Binding Fire_Speed}"/>
+                                        <DataGridTextColumn Header="5" Binding="{Binding Burn_Speed}"/>
+                                        <DataGridTextColumn Header="6" Binding="{Binding Coefficient_Speed}"/>
+                                        <DataGridTextColumn Header="7" Binding="{Binding Generate_Smoke}"/>
+                                        <DataGridTextColumn Header="8" Binding="{Binding Сonsumption_O2}"/>
+                                        <DataGridTextColumn Header="9" Binding="{Binding Selection_СО2}"/>
+                                        <DataGridTextColumn Header="10" Binding="{Binding Selection_СО}"/>
+                                        <DataGridTextColumn Header="11" Binding="{Binding Selection_HCL}"/>
+                                        <DataGridTextColumn Header="12" Binding="{Binding Coefficient_toxity}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <Border BorderBrush="Black" CornerRadius="15" Margin="41,105,39.2,0" Padding="15" BorderThickness="1" Height="285" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                                <Grid HorizontalAlignment="Left" Margin="-31,-81,-111.8,-45.8" Width="786" Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="40,80,0,0" HorizontalAlignment="Left" Width="676">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="430" Height="25" ><Run Text="Низшая теплота сгорания, МДж/кг, Q = "/></TextBlock>
+                                        <TextBox x:Name="Tb1_3" Text="" IsReadOnly="True" TextAlignment="Right" Height="21" Width="80" VerticalAlignment="Top" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="40,115,0,0" HorizontalAlignment="Left" Width="676">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="430" Height="25" ><Run Text="Линейная скорость пламени, м/с, V ="/></TextBlock>
+                                        <TextBox x:Name="Tb2_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="40,145,0,0" HorizontalAlignment="Left" Width="676">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="430" ><Run Text="Удельная скорость выгорания, кг/м2с  ="/></TextBlock>
+                                        <TextBox x:Name="Tb3_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,3.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="40,175,0,0" HorizontalAlignment="Left" Width="676">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="430" ><Run Text="Дымообразующая способность, Нп·м2/кг, D ="/></TextBlock>
+                                        <TextBox x:Name="Tb5_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="39,205,0,0" HorizontalAlignment="Left" Width="676">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.4" Width="431" ><Run Text="Потребление кислорода, кг/кг, L ="/></TextBlock>
+                                        <TextBox x:Name="Tb6_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,3.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="40,235,0,0" HorizontalAlignment="Left" Width="676">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="430" ><Run Text="Выделение СО2, кг/кг, "/></TextBlock>
+                                        <TextBox x:Name="Tb7_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="40,265,0,0" HorizontalAlignment="Left" Width="676">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="430" ><Run Text="Выделение СО, кг/кг,  "/></TextBlock>
+                                        <TextBox x:Name="Tb8_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,3.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="40,295,0,0" HorizontalAlignment="Left" Width="681">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="430" ><Run Text="Выделение HCL, кг/кг, "/></TextBlock>
+                                        <TextBox x:Name="Tb9_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <Button Content="Перейти к шагу 4" FontWeight="Medium" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Height="30" Margin="455,398,0,0" Click="Step3_Step4" Grid.Column="1"/>
+                            <Button Content="Вернуться к шагу 2" FontWeight="Medium" IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" Margin="61,398,0,0" Click="Step3_Step2" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+
+
+
+                <!--
+                                          ОКНО ШАГ 4
+    -->
+
+                <StackPanel Name="Step4" Visibility="Collapsed" Height="442">
+                    <Border  Background="GhostWhite"  BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="761">
+                        <Grid Margin="-38.6,0.4,-0.4,-0.2" HorizontalAlignment="Right" Width="755">
+                            <StackPanel Orientation="Horizontal" Height="57" VerticalAlignment="Top" Margin="35,7,-16,0" HorizontalAlignment="Left" Width="736">
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="30" Margin="0,0,0,-0.2"><Run Text="ШАГ 4"/></TextBlock>
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="494" RenderTransformOrigin="0.654,0.512" Margin="0,4,0,-27.2"><Run Text="4.  Исходные данные сценария горения  "/></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="192,32,0,0" HorizontalAlignment="Left" Width="563">
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="444" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-0.2"><Run Text="4.1  Выберите сценарий горения и введите необходимые данные"/></TextBlock>
+                            </StackPanel>
+
+                            <Border BorderBrush="Black" CornerRadius="15" Margin="35,60,39,0" Padding="15" BorderThickness="1" Height="140" VerticalAlignment="Top">
+                                <Grid Margin="-36,-76,-0.4,-27.6" Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="45,62,0,0" HorizontalAlignment="Left" Width="505">
+                                        <RadioButton x:Name="Rb1_4" GroupName="1" IsChecked="False" Margin="0,0,0,-0.2" Width="670" Checked="Scenari_bern_1" Unchecked="Unfixed_scenari_1" Content="Для горения легковоспламеняющихся и горючих жидкостей, разлитых на площади F:"/>
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp1_4" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Collapsed" Margin="50,87,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock   Margin="0,0,0,-0.2" Width="139" ><Run Text="Радиус розлива, м : R ="/></TextBlock>
+                                        <TextBox x:Name="R1_4" Text="{Binding Value, ElementName=Sl1_4, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="2" Minimum="0.1" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged9"  TickPlacement="BottomRight" ToolTip="eeee"  TickFrequency="0.1" IsSnapToTickEnabled="True" x:Name="Sl1_4" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="45,117,0,0" HorizontalAlignment="Left" Width="563">
+                                        <RadioButton x:Name="Rb2_4" GroupName="1" Checked="Scenari_bern_2" Unchecked="Unfixed_scenari_2" Content="Горение вертикальной или горизонтальной поверхности, горения в виде прямоугольника " Margin="0,0,0,-0.2" Width="535"/>
+                                    </StackPanel>
+                                    <StackPanel x:Name="Sp2_4" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Collapsed" Margin="50,142,0,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  Margin="0,0,0,-0.2" Width="139" ><Run Text="Размер зоны горения, м"/></TextBlock>
+                                        <TextBox x:Name="R2_4" Text="{Binding Value, ElementName=Sl2_4, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                        <TextBlock Margin="0,0,0,-0.2" Width="20"/>
+                                        <Slider Maximum="20" Minimum="0.1" SelectionStart="0"  IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged10"  TickPlacement="BottomRight" ToolTip="eeee"  TickFrequency="0.1" IsSnapToTickEnabled="True" x:Name="Sl2_4" Width="457" Margin="0,0.2" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="45,167,0,0" HorizontalAlignment="Left" Width="690">
+                                        <RadioButton x:Name="Rb3_4"  GroupName="1" Content="Для  кругового  распространения  пламени  по поверхности равномерно распределенного горючего материала" Margin="0,0,0,-0.2" Width="665"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="167,205,-80,0" HorizontalAlignment="Left" Width="668">
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="14" FontWeight="Medium" Width="362" RenderTransformOrigin="0.654,0.512" Margin="0,0,0,-0.2"><Run Text="4.2  Выберите предельно допустимые значения ОФП"/></TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="C1_4" Orientation="Horizontal" Height="15" VerticalAlignment="Top" Visibility="Visible" Margin="146,210,0,0" HorizontalAlignment="Left" Width="20">
+                                <CheckBox x:Name="Ch1_4" ToolTip="Нажми меня "  IsChecked="False" Margin="0,0,0,-4.8" Width="35" Checked="Algoritm_opredelenia_scenari_fire" Unchecked="Disview_limit_conditions" Height="20" VerticalAlignment="Top" />
+                            </StackPanel>
+                            <Border BorderBrush="Black" Name="Border_OFP" Visibility="Collapsed" CornerRadius="15" Margin="35,230,34,0" Padding="15" BorderThickness="1" Height="165" VerticalAlignment="Top">
+                                <Grid Name="Gr1_4" Visibility="Visible" Margin="0,-236,0.4,-11.2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33*"/>
+                                        <RowDefinition Height="5*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel x:Name="Sp3_4" Orientation="Horizontal" Height="60" VerticalAlignment="Top" Visibility="Visible" Margin="170,222,0,0" HorizontalAlignment="Left" Width="459">
+                                        <ComboBox x:Name="Cb1_4"  Margin="5,4,5,35" Width="439"  />
+                                        <DataGrid x:Name="Dg1_4" Visibility="Collapsed" AutoGenerateColumns="False" Margin="0,0,0,-23.8" Width="365">
+                                            <DataGrid.Columns>
+
+                                                <DataGridTextColumn Header="2" Binding="{Binding Temperature}"/>
+                                                <DataGridTextColumn Header="3" Binding="{Binding Oxygen_Density}"/>
+                                                <DataGridTextColumn Header="4" Binding="{Binding CO_Density}"/>
+                                                <DataGridTextColumn Header="5" Binding="{Binding CO2_Density}"/>
+                                                <DataGridTextColumn Header="6" Binding="{Binding HCL_Density}"/>
+                                                <DataGridTextColumn Header="7" Binding="{Binding Optical_Density}"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="29,225,-45,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="135" ><Run Text="Температура"/><Run Text=", "/><Run Text="гр"/><Run Text=","/><Run Text=" "/><Run Text=" T ="/></TextBlock>
+                                        <TextBox x:Name="Tb4_4" Visibility="Collapsed" Text="" IsReadOnly="True" TextAlignment="Right" Width="50" Margin="0,0.2,0,5.2" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="24,255,-40,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="500" Text="Содержание O2, кг/м3  =" />
+                                        <TextBox x:Name="Tb5_4" Text="" IsReadOnly="True" TextAlignment="Right" Width="90" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="24,280,-40,0" HorizontalAlignment="Left" Width="670">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="500" Text="Содержание CO, кг/м3  =" />
+                                        <TextBox x:Name="Tb6_4" Text="" IsReadOnly="True" TextAlignment="Right" Width="90" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="24,305,-40,0" HorizontalAlignment="Left" Width="670" Grid.RowSpan="2">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="500" Text="Содержание CO2, кг/м3  =" />
+                                        <TextBox x:Name="Tb7_4" Text="" IsReadOnly="True" TextAlignment="Right" Width="90" Margin="0,0,0,5.6" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="24,0.4,-40,0" HorizontalAlignment="Left" Width="670" Grid.Row="1">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="500" ><Run Text="Содержание HCL"/><Run Text=", кг/м3  ="/></TextBlock>
+                                        <TextBox x:Name="Tb8_4" Text="" IsReadOnly="True" TextAlignment="Right" Width="90" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+                                    <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="24,25.4,-40,0" HorizontalAlignment="Left" Width="670" Grid.Row="1">
+                                        <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="500" Text="Придельная оптическая =" />
+                                        <TextBox x:Name="Tb9_4" Text="" IsReadOnly="True" TextAlignment="Right" Width="90" Margin="0,0,0,4.8" />
+                                    </StackPanel>
+
+                                </Grid>
+                            </Border>
+
+                            <Button Content="Вернуться к шагу 3" FontWeight="Medium" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" Margin="61,398,0,0" Click="Step4_Step3"/>
+                            <Button Content="Результаты"  FontWeight="Medium" IsCancel="True" HorizontalAlignment="Left" Width="120" Margin="571,398,0,9.4" Click="Algoritm_critical_Time" />
+                        </Grid>
+
+
+                    </Border>
+                </StackPanel>
+
+
+
+                <StackPanel Name="Result" Visibility="Collapsed" Height="442">
+                    <Border  Background="GhostWhite" BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="1520">
+                        <Grid Margin="0,0.4,-0.4,0.2" HorizontalAlignment="Right" Width="1513">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="116*"/>
+                                <ColumnDefinition Width="639*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top" Margin="46,10,0,0" HorizontalAlignment="Left" Width="1358" Grid.ColumnSpan="2">
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="20"><Run Text="РЕЗУЛЬТАТЫ"/></TextBlock>
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="1091" RenderTransformOrigin="0.654,0.512" Text="5.1  Результаты расчетов" Margin="0,0,0,0.2"/>
+                            </StackPanel>
+
+
+                            <Grid Visibility="Visible" Grid.ColumnSpan="2" Margin="0,45,54.6,37">
+
+                                <Border BorderBrush="Black" CornerRadius="15" Margin="35,39,775,0" Padding="15" BorderThickness="1" Height="130" VerticalAlignment="Top">
+                                    <Grid Margin="-36,-46,-0.4,-27.8" Grid.ColumnSpan="2">
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="259,-1,0,0" HorizontalAlignment="Left" Width="265">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" FontWeight="Medium" FontSize="14" Width="596" ><Run Text="5.1.1. Исходные данные о помещении:"/><LineBreak/><Run Text=""/></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="39,54,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="360" ><Run Text=" "/><Run Text="-Назначение помещения"/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_0" Text="" IsReadOnly="True" TextAlignment="Left" Width="240" Margin="0,2,0,2.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="39,34,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="360" ><Run Text=" "/><Run Text="- Адрес объекта"/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_1" Text="" IsReadOnly="True" TextAlignment="Left" Width="240" Margin="0,2,0,2.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="38,75,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="361" ><Run Text="- "/><Run Text="Класс ФПО"/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_2" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="39,95,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="360" ><Run Text="- Площадь помещения"/><Run Text=", м2"/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_3" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="38,115,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="361" ><Run Text="- Объем помещения"/><Run Text=", м3"/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_4" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="38,135,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="361" ><Run Text="- "/><Run Text="Свободный объем"/><Run Text=", м3"/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_5" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <Border BorderBrush="Black" CornerRadius="15" Margin="34,214,775,0" Padding="15" BorderThickness="1" Height="125" VerticalAlignment="Top">
+                                    <Grid Margin="-36,-172,-0.6,-25.2" Grid.ColumnSpan="2">
+
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="39,193,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="422" ><Run Text="- "/><Run Text="Размерный параметр "/><Run Text="Z:"/></TextBlock>
+                                            <TextBox x:Name="Tbr_6" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="39,213,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="422" ><Run Text="- "/><Run Text="Количество горючего материала "/><Run Text="B"/><Run Text=", кг "/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_7" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+
+
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="39,233,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="422" ><Run Text="- "/><Run Text="Размерный параметр А"/><Run Text=", кг/с-1 :"/></TextBlock>
+                                            <TextBox x:Name="Tbr_8" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+
+                                <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="274,179,0,0" HorizontalAlignment="Left" Width="221">
+                                    <TextBlock  ToolTip="" FontWeight="Medium" FontSize="14" Margin="0,0,0,-0.2" Width="151" Height="25" VerticalAlignment="Bottom" ><Run Text="5.1.2. "/><Run Text="П"/><Run Text="араметры"/><Run Text=" ОФП"/><Run Text=":"/></TextBlock>
+                                </StackPanel>
+                                <Border BorderBrush="Black" CornerRadius="15" Margin="754,39,55,0" Padding="15" BorderThickness="1" Height="140" VerticalAlignment="Top">
+                                    <Grid Margin="-750,-62,-181.6,-30" Grid.ColumnSpan="2">
+
+                                        <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="754,95,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="521" ><Run Text="- "/><Run Text="П"/><Run Text="ониженному содержанию (О2) t крО2, с :"/></TextBlock>
+                                            <TextBox x:Name="Tbr_11" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="754,115,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="521" ><Run Text="- "/><Run Text="У"/><Run Text="гарному газу (СО),  t крСО, с :"/></TextBlock>
+                                            <TextBox x:Name="Tbr_12" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="254,263,0,0" HorizontalAlignment="Left" Width="445"/>
+                                        <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="754,135,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="521" ><Run Text="- "/><Run Text="У"/><Run Text="глекислому газу (СО2), t крСО2, с :"/></TextBlock>
+                                            <TextBox x:Name="Tbr_13" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="754,155,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="521" ><Run Text="- "/><Run Text="П"/><Run Text="арам хлороводорода (HCl), t крHCL, c : "/></TextBlock>
+                                            <TextBox x:Name="Tbr_14" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="885,10,-11,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" FontWeight="Medium" FontSize="14" Margin="0,0,0,-0.4" Width="596" ><Run Text="5.1.3. "/><Run Text="Критическая продолжительность пожара"/><Run Text=" "/><Run Text="по"/><Run Text=":"/><LineBreak/><Run Text=""/></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="753,55,0,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="522" ><Run Text="- "/><Run Text="Т"/><Run Text="емпературе t крТ, с : "/></TextBlock>
+                                            <TextBox x:Name="Tbr_9" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="754,75,0,0" HorizontalAlignment="Left" Width="681">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="521" ><Run Text="- "/><Run Text="П"/><Run Text="отере видимости  t крПВ, с :"/></TextBlock>
+                                            <TextBox x:Name="Tbr_10" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <Border Name="otvet" BorderBrush="Black" CornerRadius="15" Margin="754,199,55,0" Padding="15" BorderThickness="2" Height="140" VerticalAlignment="Top">
+                                    <Grid Margin="-750,-197,-41.6,-30" Grid.ColumnSpan="2">
+                                        <StackPanel  Orientation="Horizontal" Height="40" VerticalAlignment="Top" Visibility="Visible" Margin="759,188,0,0" HorizontalAlignment="Left" Width="670">
+                                            <TextBlock  ToolTip="" FontWeight="Medium" FontSize="14" Margin="0,0,0,-1.2" Width="515" ><Run Text="Минимальная критическая продолжительность пожара"/><Run Text=", c :"/></TextBlock>
+                                            <TextBox x:Name="Tbr_15" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="759,208,0,0" HorizontalAlignment="Left" Width="401">
+                                            <TextBlock  ToolTip="" FontWeight="Medium" FontSize="14" Margin="0,0,0,-0.2" Width="596" Text="t кр = min {t крТ; t крПВ; t крО2; t крСО2; t крСО; t крHCl}" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="760,235,-26,0" HorizontalAlignment="Left" Width="676">
+                                            <TextBlock  ToolTip="" Margin="0,0,0,-0.2" Width="515" ><Run Text="- "/><Run Text=""/><Run Text=""/><Run Text="Количество выгоревшего к моменту tкр  материала, кг "/><Run Text=":"/></TextBlock>
+                                            <TextBox x:Name="Tbr_18" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="759,258,0,0" HorizontalAlignment="Left" Width="670">
+                                            <TextBlock  ToolTip="" FontWeight="Medium" FontSize="16" Margin="0,0,0,-1.2" Width="515" Text=" Выбранная расчетная схема развития пожара:" />
+                                            <TextBox x:Name="Tbr_17" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+
+
+                                        <StackPanel  Orientation="Horizontal" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="759,285,0,0" HorizontalAlignment="Left" Width="670">
+                                            <TextBlock  ToolTip="" FontWeight="Medium" FontSize="16" Margin="0,0,0,-1.2" Width="515" ><Run Text="Необходимое время эвакуации"/><Run Text=" людей из"/><Run Text=" помещения, c :"/></TextBlock>
+                                            <TextBox x:Name="Tbr_16" Text="" IsReadOnly="True" TextAlignment="Right" Width="80" Margin="0,0,0,4.8" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                            </Grid>
+
+                            <Button Content="Вернуться к шагу 4" IsDefault="True" HorizontalAlignment="Left" Width="120" Margin="61,398,0,9" Click="Rezultat_Step4"/>
+
+                            <!-- <Button Content="График" Name="button1" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" Margin="190,400,0,0" Click="Button_Click3_5" Grid.Column="1"/> -->
+                            <Button Name="Last_menu" Content="Вернуться в меню" IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="30" Margin="1042.2,393,0,0" Click="Resultat_Menu" Grid.Column="1" />
+                            <Button Content="Сохранить результат в БД" Name="Save_BD" Visibility="Collapsed" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="155" Height="30" Margin="846.2,395,0,0" Click="Open_BD" Grid.Column="1"/>
+                            <Button Content="Рассчитать время" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Height="30" Margin="533.2,393,0,0" Click=" Algaritm__scheme_fire" Grid.Column="1"/>
+
+
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+
+                <!--
+                                          ОКНО ШАГ ГРАФИИК
+    -->
+
+                <StackPanel Name="Drawing" Visibility="Collapsed" Height="442">
+                    <Border  Background="GhostWhite" BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="761">
+                        <Grid Width="590" Margin="83.4,18.4,83.4,67.2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="369*" />
+                                <RowDefinition Height="45*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top" Margin="34,1,0,0" HorizontalAlignment="Left" Width="545">
+                                <TextBlock   FontWeight="Medium" FontSize="20" Margin="0,0,0,0.2" Width="120"><Run Text="ГРАФИК"/></TextBlock>
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock   TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="416" RenderTransformOrigin="0.654,0.512" Text="6.1 Времена наступления опасных факторов пожара" Margin="0,0,0,0.2"/>
+                            </StackPanel>
+
+                            <charting:Chart Name="Charts" Margin="3,41,3,24.8" Grid.RowSpan="2">
+
+                                <charting:ColumnSeries Title="Timur" Name="ChartOne" DependentValuePath="Value" IndependentValuePath="Name" />
+
+                                <charting:Chart.Axes>
+                                    <charting:LinearAxis Orientation="Y" Minimum="0" Maximum="500" Title="Секунд" />
+                                    <charting:CategoryAxis Orientation="X" Title="Времена наступления опасных факторов пожара,секунд" ShowGridLines="False" />
+                                </charting:Chart.Axes>
+
+                            </charting:Chart>
+
+                            <!--  <Button Content="Вернуться в меню" IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" Margin="464,63.6,0,-55.2" Click="Button_Click1_6" Grid.Row="1" />
+                            <Button Content="Результаты" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" Margin="-16,63.6,0,-55.2" Click="Button_Click2_6" Grid.Row="1"/>
+-->
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+
+                <!--
+                                          ОКНО РЕЗУЛЬТАТЫ БД
+    -->
+
+                <StackPanel Name="BD" Visibility="Collapsed" Height="442">
+                    <Border  Background="GhostWhite" BorderBrush="Blue" BorderThickness="3" CornerRadius="55,55,55,55" Height="442"  Width="1515">
+                        <Grid Margin="-38.6,0.4,-0.4,-0.2" HorizontalAlignment="Right" Width="755">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="116*"/>
+                                <ColumnDefinition Width="639*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top" Margin="-703,10,0,0" HorizontalAlignment="Left" Width="1275" Grid.ColumnSpan="2">
+                                <TextBlock  ToolTip="" FontWeight="Medium" FontSize="20" Margin="0,0,0,0.2" Width="160"><Run Text="БД РЕЗУЛЬТАТЫ"/></TextBlock>
+                                <TextBlock  Margin="5,10" ToolTip=""/>
+                                <TextBlock  ToolTip="" TextAlignment="Center" FontSize="16" FontWeight="Medium" Width="388" RenderTransformOrigin="0.654,0.512" Text="5.2  Результаты "/>
+                            </StackPanel>
+
+                            <StackPanel x:Name="Sp_BD" Orientation="Horizontal" Height="392" VerticalAlignment="Top" Visibility="Visible" Margin="-718,43,0,0" HorizontalAlignment="Left" Width="1469" Grid.ColumnSpan="2">
+                                <DataGrid x:Name="Dg_BD" Visibility="Visible" IsReadOnly="True" LoadingRow="Dg1_2_1_LoadingRow" RowHeaderWidth="30" AutoGenerateColumns="False" Margin="0,0,0,57" Width="1420">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Адрес" Binding="{Binding Adress_object1}"   Width="*"/>
+                                        <DataGridTextColumn Header="Назначение помещения" Binding="{Binding Type_house }"/>
+                                        <DataGridTextColumn Header="Класс ФПО" Binding="{Binding Room_Func_object }"/>
+                                        <DataGridTextColumn Header="Площадь,м2" Binding="{Binding Area_object}"/>
+                                        <DataGridTextColumn Header="Объем,м3" Binding="{Binding Volume_object }"/>
+                                        <DataGridTextColumn Header="Свободный объем,м3" Binding="{Binding Volume_free_object}"/>
+                                        <DataGridTextColumn Header="Высота, м" Binding="{Binding  Heihgt__object}"/>
+                                        <DataGridTextColumn Header="Параметр Z" Binding="{Binding Z_object}"/>
+                                        <DataGridTextColumn Header="Параметр B, кг" Binding="{Binding B_object}"/>
+                                        <DataGridTextColumn Header="Параметр A" Binding="{Binding A_object}"/>
+                                        <DataGridTextColumn Header="t_крТ,c" Binding="{Binding t_крТ }"/>
+                                        <DataGridTextColumn Header="t_крPV,c" Binding="{Binding t_крPV}"/>
+                                        <DataGridTextColumn Header="t_крO2,c" Binding="{Binding  t_крO2}"/>
+                                        <DataGridTextColumn Header="t_крТCO2,c" Binding="{Binding t_крТCO2}"/>
+                                        <DataGridTextColumn Header="t_крCO,c" Binding="{Binding t_крCO}"/>
+                                        <DataGridTextColumn Header="t_крHCL,c" Binding="{Binding t_крHCL}"/>
+                                        <DataGridTextColumn Header="Опасна ?" Binding="{Binding Сonclusion }"/>
+                                        <DataGridTextColumn Header="t_кр,c" Binding="{Binding t_кр}"/>
+                                        <DataGridTextColumn Header="t_нб,c" Binding="{Binding t_нб}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <Button Content="Удалить из БД"  IsDefault="True" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="47,402,0,0" Click="Delete_BD_Result" Grid.ColumnSpan="2" Height="20"/>
+                            <Button Content="Добавить результат в БД" Name="add_BD" IsCancel="True" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Margin="-213,402,0,0" Click="Add_BD_Result" Height="20" />
+                            <Button Content="Вернуться в МЕНЮ" FontWeight="Medium"  IsCancel="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="-443,402,0,0" Click="BD_Menu" Height="20" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+            </WrapPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+
+
+</Window>
